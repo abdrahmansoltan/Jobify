@@ -18,9 +18,7 @@ const Landing = () => {
             Job <span>tracking</span> app
           </h1>
           <p>
-            baby bicycle rights VHS meh wayfarers bitters fixie. Kale chips
-            butcher locavore gluten-free hashtag man braid keffiyeh small batch
-            glossier hammock brooklyn vinyl palo santo. Fam woke mixtape
+            Track Your Job Search Process Now!
           </p>
           <Link to='/register' className="btn btn-hero">Login/Register</Link>
         </div>
