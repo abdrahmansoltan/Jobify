@@ -4,6 +4,9 @@
   "description": "<img src=\"https://progress-bar.dev/20/?title=Done\" alt=\"Logo\"  height='30' >",
   "main": "index.js",
   "scripts": {
+    "install-server": "npm install --prefix server",
+    "install-client": "npm install --prefix client",
+    "install": "npm run install-server && npm run install-client",
     "server": "npm start --prefix server",
     "client": "npm start --prefix client",
     "start": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""

@@ -1,5 +1,6 @@
 # Jobify
-<img src="https://progress-bar.dev/20/?title=Done" alt="Logo"  height='30' >
+
+<img src="https://progress-bar.dev/40/?title=Done" alt="Logo"  height='30' >
 
 <div id="top"></div>
 
@@ -7,6 +8,8 @@
 ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 ![styled-components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 ![node](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 
 <!-- PROJECT LOGO -->
 <div align="center">
@@ -59,6 +62,8 @@ MERN Stack Application for tracking Job Search Process
 - React Router
 - styled-components
 - Node.js
+- Express
+- MongoDB
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -88,21 +93,34 @@ This project require some prequesites and dependenscies to be installed, you can
    cd jobify
    ```
 
-<!-- 3. install dependenscies
+3. install dependencies
 
    ```bash
-   npm install
+   npm run install
    ```
 
-4. Run development server
+4. Environmental Variables Set up
+
+   - Here are the environmental variables that needs to be set in the `.env` file in the **server directory**.
+   - These are the default setting that I used for development, but you can change it to what works for you.
+
+   ```
+     PORT=5000
+     MONGO_URL=<Your mongodb url>
+     JWT_LIFETIME=1d
+     JWT_SECRET=<any secret value of your choice>
+   ```
+
+5. Run development server
 
    ```sh
    npm start
-   ``` -->
+   ```
 
 ### Ports
 
 - FrontEnd Development Server runs on port `3000`
+- BackEnd Development Server runs on port `5000`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
