@@ -9,6 +9,7 @@ import connectDB from "./db/connect.js";
 
 // ------------Routers------------ //
 import authRouter from "./routes/authRoutes.js";
+import jobsRouter from "./routes/jobsRouter.js";
 
 // ------------middleware------------ //
 import notFoundMiddleware from "./middlewares/not-found.js";
@@ -18,7 +19,8 @@ app.use(express.json()); // make json-data available
 app.get("/", (req, res) => {
   res.send("Welcome!");
 });
-app.use("api/v1/auth", authRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/jobs", jobsRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
