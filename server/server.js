@@ -18,8 +18,8 @@ import notFoundMiddleware from "./middlewares/not-found.js";
 import errorHandlerMiddleware from "./middlewares/error-handler.js";
 
 app.use(express.json()); // make json-data available
-app.get("/", (req, res) => {
-  res.send("Welcome!");
+app.get("/api/v1", (req, res) => {
+  res.json("Welcome!");
 });
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", jobsRouter);

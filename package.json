@@ -1,0 +1,25 @@
+{
+  "name": "jobify",
+  "version": "1.0.0",
+  "description": "<img src=\"https://progress-bar.dev/20/?title=Done\" alt=\"Logo\"  height='30' >",
+  "main": "index.js",
+  "scripts": {
+    "server": "npm start --prefix server",
+    "client": "npm start --prefix client",
+    "start": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdrahmansoltan/Jobify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdrahmansoltan/Jobify/issues"
+  },
+  "homepage": "https://github.com/abdrahmansoltan/Jobify#readme",
+  "dependencies": {
+    "concurrently": "^7.2.1"
+  }
+}
