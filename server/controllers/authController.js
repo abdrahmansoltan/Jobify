@@ -1,20 +1,18 @@
 import User from "../models/user.js";
 import { StatusCodes } from "http-status-codes";
-
-// creating custom error status-code:
-class CustomAPIError extends Error {
-  constructor(message) {
-    super(message);
-    this.statusCode = StatusCodes.BAD_REQUEST; // 400
-  }
-}
+import { BadRequestError } from "../errors/index.js";
 
 // here we're  replacing try-catch with "express-async-errors" Package which passes error to the errorHandler
 const register = async (req, res) => {
   const { name, email, password } = req.body;
-  // creating custom error message:
+  // creating custom error messages:
   if (!name || !email || !password) {
-    throw new CustomAPIError("Please Provide all values");
+    throw new BadRequestError("Please Provide all values");
+  }
+  // checking for existed email
+  const userAlreadyExists = await User.findOne({ email });
+  if (userAlreadyExists) {
+    throw new BadRequestError("Email already in use");
   }
 
   const user = await User.create({ name, email, password });
