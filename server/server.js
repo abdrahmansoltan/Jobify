@@ -8,6 +8,7 @@ const port = process.env.PORT || 5000;
 
 // ------------DB & AuthenticateUser------------ //
 import connectDB from "./db/connect.js";
+import morgan from "morgan";
 
 // ------------Routers------------ //
 import authRouter from "./routes/authRoutes.js";
@@ -17,6 +18,9 @@ import jobsRouter from "./routes/jobsRouter.js";
 import notFoundMiddleware from "./middlewares/not-found.js";
 import errorHandlerMiddleware from "./middlewares/error-handler.js";
 
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
+}
 app.use(express.json()); // make json-data available
 app.get("/api/v1", (req, res) => {
   res.json("Welcome!");
