@@ -43,6 +43,14 @@ const UserSchema = new mongoose.Schema({
 
 // middleware that is executed before the action specified -> "save"
 UserSchema.pre("save", async function () {
+  console.log(this.modifiedPaths()); // shows the modified fields.
+
+  // Here we don't hash the password again if it's not modified
+  if (!this.isModified("password")) {
+    return;
+  }
+
+  // else
   // Hashing password
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);

@@ -9,6 +9,9 @@ import {
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
 } from "./actions";
@@ -36,6 +39,36 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   // const [state, setState] = useState(initialState);
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  // -------------------axios---------------------- //
+  // creating Setup Instance with header for requests
+  const authFetch = axios.create({
+    baseURL: "/api/v1",
+  });
+  // request Interceptors: https://axios-http.com/docs/interceptors
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers.common["Authorization"] = `Bearer ${state.token}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+  // response Interceptors
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      console.log(error.response);
+      // deal with 404(NOT_FOUND) error which means UNAUTHORIZED (no token)
+      if (error.response.status === 401) {
+        logoutUser();
+      }
+      return Promise.reject(error);
+    }
+  );
 
   // ----------Dispatching Actions------------- //
   const displayAlert = () => {
@@ -99,6 +132,29 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const updateUser = async (currentUser) => {
+    dispatch({ type: UPDATE_USER_BEGIN });
+    try {
+      const { data } = await authFetch.patch("/auth/updateUser", currentUser);
+      const { user, location, token } = data;
+
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: { user, location, token },
+      });
+      addUserToLocalStorage({ user, location, token });
+    } catch (error) {
+      // deal with user only if it's 400(BAD_REQUEST) as 404(NOT_FOUND) means UNAUTHORIZED (no token)
+      if (error.response.status !== 401) {
+        dispatch({
+          type: UPDATE_USER_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
+    }
+    clearAlert();
+  };
+
   const toggleSidebar = () => {
     dispatch({ type: TOGGLE_SIDEBAR });
   };
@@ -116,6 +172,7 @@ const AppProvider = ({ children }) => {
         loginUser,
         toggleSidebar,
         logoutUser,
+        updateUser,
       }}
     >
       {children}
