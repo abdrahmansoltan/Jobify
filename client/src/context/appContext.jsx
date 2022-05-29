@@ -16,7 +16,7 @@ import reducer from "./reducer";
 
 // ----------Local Storage------------- //
 const token = localStorage.getItem("token");
-const user = localStorage.getItem("user");
+const user = JSON.parse(localStorage.getItem("user"));
 const userLocation = localStorage.getItem("location");
 
 const initialState = {
@@ -70,7 +70,7 @@ const AppProvider = ({ children }) => {
         type: REGISTER_USER_SUCCESS,
         payload: { user, token, location },
       });
-      addUserToLocalStorage(user, token, location);
+      addUserToLocalStorage({ user, token, location });
     } catch (error) {
       dispatch({
         type: REGISTER_USER_ERROR,
@@ -89,7 +89,7 @@ const AppProvider = ({ children }) => {
         type: LOGIN_USER_SUCCESS,
         payload: { user, token, location },
       });
-      addUserToLocalStorage(user, token, location);
+      addUserToLocalStorage({ user, token, location });
     } catch (error) {
       dispatch({
         type: LOGIN_USER_ERROR,
