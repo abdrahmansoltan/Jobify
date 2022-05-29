@@ -58,7 +58,7 @@ UserSchema.methods.createJWT = function () {
 // adding a comparePassword-method to the user-object so that it can be used in the controller
 UserSchema.methods.comparePassword = async function (candidatePassword) {
   const isMatch = await bcrypt.compare(candidatePassword, this.password);
-  
+
   return isMatch;
 };
 

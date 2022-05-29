@@ -55,6 +55,7 @@ const login = async (req, res) => {
 };
 
 const updateUser = (req, res) => {
+  console.log(req.user); // from auth-middleware
   res.send("updateUser");
 };
 
