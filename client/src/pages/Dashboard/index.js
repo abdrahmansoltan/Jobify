@@ -1,4 +1,4 @@
-import AddJob from "./AddJob";
+import AddJob from "./AddJob/AddJob";
 import AllJobs from "./AllJobs";
 import Profile from "./Profile/Profile";
 import Stats from "./Stats";

@@ -14,6 +14,11 @@ import {
   UPDATE_USER_ERROR,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
+  CREATE_JOB_BEGIN,
+  CREATE_JOB_SUCCESS,
+  CREATE_JOB_ERROR,
 } from "./actions";
 import reducer from "./reducer";
 
@@ -29,9 +34,17 @@ const initialState = {
   alertType: "",
   user: user ? user : null,
   token: token,
-  userLocation: userLocation | "",
-  jobLocation: userLocation | "",
+  userLocation: userLocation || "",
   showSidebar: false,
+  isEditing: false, // edit vs create job
+  editJobId: "",
+  position: "",
+  company: "",
+  jobLocation: userLocation || "",
+  jobTypeOptions: ["full-time", "part-time", "remote", "internship"],
+  jobType: "full-time",
+  statusOptions: ["interview", "declined", "pending"],
+  status: "pending",
 };
 
 const AppContext = createContext();
@@ -163,6 +176,45 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage();
   };
 
+  // for creating/updating a job
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+  };
+  // for clearing job-form
+  const clearValues = () => {
+    dispatch({ type: CLEAR_VALUES });
+  };
+  const createJob = async () => {
+    dispatch({ type: CREATE_JOB_BEGIN });
+
+    try {
+      // first get the form-values from the state
+      const { position, company, jobLocation, jobType, status } = state;
+
+      await authFetch.post("/jobs", {
+        company,
+        position,
+        jobLocation,
+        jobType,
+        status,
+      });
+      dispatch({
+        type: CREATE_JOB_SUCCESS,
+      });
+
+      // call function instead clearValues()
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === 401) return;
+      dispatch({
+        type: CREATE_JOB_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+
+    clearAlert(); // at the end
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -173,6 +225,9 @@ const AppProvider = ({ children }) => {
         toggleSidebar,
         logoutUser,
         updateUser,
+        handleChange,
+        clearValues,
+        createJob,
       }}
     >
       {children}

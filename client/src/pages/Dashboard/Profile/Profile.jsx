@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FormRow, Alert } from "../../../components";
 import { useAppContext } from "../../../context/appContext";
-import Wrapper from "./Profile.styles";
+import Wrapper from "./DashboardFormPage.styles";
 
 const Profile = () => {
   const { user, showAlert, displayAlert, updateUser, isLoading } =
