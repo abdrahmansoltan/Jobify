@@ -22,6 +22,7 @@ import {
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
   GET_JOBS_ERROR,
+  SET_EDIT_JOB,
 } from "./actions";
 import reducer from "./reducer";
 
@@ -247,7 +248,11 @@ const AppProvider = ({ children }) => {
   };
 
   const setEditJob = (id) => {
-    console.log(`set edit job : ${id}`);
+    dispatch({ type: SET_EDIT_JOB, payload: { id } });
+  };
+
+  const editJob = () => {
+    console.log(`edit job`);
   };
   const deleteJob = (id) => {
     console.log(`delete : ${id}`);
@@ -268,6 +273,7 @@ const AppProvider = ({ children }) => {
         createJob,
         getJobs,
         setEditJob,
+        editJob,
         deleteJob,
       }}
     >

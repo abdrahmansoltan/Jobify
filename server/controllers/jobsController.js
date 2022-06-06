@@ -5,6 +5,7 @@ import {
   NotFoundError,
   UnAuthenticatedError,
 } from "../errors/index.js";
+import checkPermissions from "../utils/checkPermissions.js";
 
 // -----All the functions must be ASYNC as we're connecting to a DB----- //
 
@@ -31,9 +32,34 @@ const getAllJobs = async (req, res) => {
 const deleteJob = async (req, res) => {
   res.send("delete job");
 };
+
 const updateJob = async (req, res) => {
-  res.send("update job");
+  const { id: jobId } = req.params;
+
+  const { company, position } = req.body;
+
+  // Extra step for validation
+  if (!company || !position) {
+    throw new BadRequestError("Please Provide All Values");
+  }
+
+  const job = await Job.findOne({ _id: jobId });
+
+  if (!job) {
+    throw new NotFoundError(`No job with id ${jobId}`);
+  }
+
+  // check permissions -> to prevent different user from modifying other users' jobs if they have their job-ID
+  checkPermissions(req.user, job.createdBy);
+
+  const updatedJob = await Job.findOneAndUpdate({ _id: jobId }, req.body, {
+    new: true,
+    runValidators: true, // validate that the data exists
+  });
+
+  res.status(StatusCodes.OK).json({ updatedJob }); // for postman
 };
+
 const showStats = async (req, res) => {
   res.send("show stats");
 };
