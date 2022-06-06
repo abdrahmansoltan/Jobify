@@ -19,6 +19,9 @@ import {
   CREATE_JOB_BEGIN,
   CREATE_JOB_SUCCESS,
   CREATE_JOB_ERROR,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
+  GET_JOBS_ERROR,
 } from "./actions";
 import reducer from "./reducer";
 
@@ -45,6 +48,10 @@ const initialState = {
   jobType: "full-time",
   statusOptions: ["interview", "declined", "pending"],
   status: "pending",
+  jobs: [],
+  totalJobs: 0,
+  numOfPages: 1,
+  page: 1,
 };
 
 const AppContext = createContext();
@@ -215,6 +222,30 @@ const AppProvider = ({ children }) => {
     clearAlert(); // at the end
   };
 
+  const getJobs = async () => {
+    let url = "/jobs";
+    dispatch({ type: GET_JOBS_BEGIN });
+
+    try {
+      const { data } = await authFetch(url);
+      const { jobs, totalJobs, numOfPages } = data;
+
+      dispatch({
+        type: GET_JOBS_SUCCESS,
+        payload: {
+          jobs,
+          totalJobs,
+          numOfPages,
+        },
+      });
+    } catch (error) {
+      console.log(error.response);
+      // logoutUser(); // as there's something wrong with the server
+    }
+
+    clearAlert(); // SCENARIO: if user added a job then went to all-jobs page before the request is done
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -228,6 +259,7 @@ const AppProvider = ({ children }) => {
         handleChange,
         clearValues,
         createJob,
+        getJobs,
       }}
     >
       {children}
