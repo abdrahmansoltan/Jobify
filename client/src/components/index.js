@@ -7,15 +7,19 @@ import BigSidebar from "./BigSidebar/BigSidebar";
 import SmallSidebar from "./SmallSidebar/SmallSidebar";
 import SearchContainer from "./SearchContainer/SearchContainer";
 import JobsContainer from "./JobsContainer/JobsContainer";
+import StatsContainer from "./StatsContainer/StatsContainer";
+import Loading from "./Loading";
 
 export {
   Logo,
   FormRow,
   Alert,
+  Loading,
   Navbar,
   BigSidebar,
   SmallSidebar,
   FormRowSelect,
   SearchContainer,
   JobsContainer,
+  StatsContainer,
 };
