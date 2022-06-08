@@ -1,4 +1,5 @@
 import Job from "../models/Job.js";
+import mongoose from "mongoose";
 import { StatusCodes } from "http-status-codes";
 import {
   BadRequestError,
@@ -69,11 +70,31 @@ const deleteJob = async (req, res) => {
   checkPermissions(req.user, job.createdBy);
 
   await job.remove();
-  res.status(StatusCodes.OK).json({ msg:"success! Job Removed" }); // for postman
+  res.status(StatusCodes.OK).json({ msg: "success! Job Removed" }); // for postman
 };
 
+// Aggregation pipeline
 const showStats = async (req, res) => {
-  res.send("show stats");
+  let stats = await Job.aggregate([
+    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } }, // all jobs for one user
+    { $group: { _id: "$status", count: { $sum: 1 } } }, // group by job-count for each (job-status) field
+  ]);
+
+  // manipulating the stats structure to be more usable
+  stats = stats.reduce((acc, curr) => {
+    const { _id: title, count } = curr;
+    acc[title] = count; // Ex: (pending: 34)
+    return acc;
+  }, {});
+
+  const defaultStats = {
+    pending: stats.pending || 0,
+    interview: stats.interview || 0,
+    declined: stats.declined || 0,
+  };
+  let monthlyApplications = [];
+  
+  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
 };
 
 export { createJob, deleteJob, getAllJobs, updateJob, showStats };
