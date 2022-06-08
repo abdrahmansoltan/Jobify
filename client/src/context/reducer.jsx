@@ -21,6 +21,10 @@ import {
   GET_JOBS_SUCCESS,
   GET_JOBS_ERROR,
   SET_EDIT_JOB,
+  EDIT_JOB_BEGIN,
+  EDIT_JOB_SUCCESS,
+  EDIT_JOB_ERROR,
+  DELETE_JOB_BEGIN,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -154,6 +158,7 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === CLEAR_VALUES) {
+    // clear job-form inputs
     const initialState = {
       isEditing: false,
       editJobId: "",
@@ -201,7 +206,7 @@ const reducer = (state, action) => {
   }
 
   if (action.type === SET_EDIT_JOB) {
-    // to get job-values (form-placeholders) to the form when editing
+    // to get job-values (form-placeholders) to the form & state when editing
     const job = state.jobs.find((job) => job._id === action.payload.id);
     const { _id, position, company, jobLocation, jobType, status } = job;
     return {
@@ -214,6 +219,31 @@ const reducer = (state, action) => {
       jobType,
       status,
     };
+  }
+  if (action.type === EDIT_JOB_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+  if (action.type === EDIT_JOB_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "Job Updated!",
+    };
+  }
+  if (action.type === EDIT_JOB_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === DELETE_JOB_BEGIN) {
+    return { ...state, isLoading: true };
   }
 
   // -----if no type specified----- //
