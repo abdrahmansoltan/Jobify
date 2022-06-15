@@ -29,6 +29,7 @@ import {
   DELETE_JOB_BEGIN,
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
+  CLEAR_FILTERS,
 } from "./actions";
 import reducer from "./reducer";
 
@@ -61,6 +62,12 @@ const initialState = {
   page: 1,
   stats: {},
   monthlyApplications: [],
+  // initial values for Job-searching
+  search: "",
+  searchStatus: "all",
+  searchType: "all",
+  sort: "latest",
+  sortOptions: ["latest", "oldest", "a-z", "z-a"],
 };
 
 const AppContext = createContext();
@@ -232,7 +239,12 @@ const AppProvider = ({ children }) => {
   };
 
   const getJobs = async () => {
-    let url = "/jobs";
+    const { page, search, searchStatus, searchType, sort } = state;
+    let url = `/jobs?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`;
+    if (search) {
+      url = url + `&search=${search}`;
+    }
+
     dispatch({ type: GET_JOBS_BEGIN });
 
     try {
@@ -249,7 +261,7 @@ const AppProvider = ({ children }) => {
       });
     } catch (error) {
       console.log(error.response);
-      // logoutUser(); // as there's something wrong with the server
+      logoutUser(); // as there's something wrong with the server
     }
 
     clearAlert(); // SCENARIO: if user added a job then went to all-jobs page before the request is done
@@ -309,10 +321,14 @@ const AppProvider = ({ children }) => {
       });
     } catch (error) {
       console.log(error.response);
-      // logoutUser()
+      logoutUser();
     }
 
     clearAlert();
+  };
+
+  const clearFilters = () => {
+    dispatch({ type: CLEAR_FILTERS });
   };
 
   return (
@@ -333,6 +349,7 @@ const AppProvider = ({ children }) => {
         editJob,
         deleteJob,
         showStats,
+        clearFilters,
       }}
     >
       {children}
