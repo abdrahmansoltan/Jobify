@@ -62,11 +62,11 @@ const getAllJobs = async (req, res) => {
   // setup pagination
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 10;
-  const skip = (page - 1) * limit;
+  const skip = (page - 1) * limit; // skipping 10 items each time to display the other 10 in the next page
 
   result = result.skip(skip).limit(limit);
   const jobs = await result;
-  const totalJobs = await Job.countDocuments(queryObject);
+  const totalJobs = await Job.countDocuments(queryObject); // instead of using the length as length indicates 10 items here and not all jobs
   const numOfPages = Math.ceil(totalJobs / limit);
 
   res.status(StatusCodes.OK).json({ jobs, totalJobs, numOfPages });

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Loading from "../Loading";
 import Job from "../Job/Job";
 import Wrapper from "./JobsContainer.styles";
+import PageBtnContainer from "../PageBtnContainer/PageBtnContainer";
 
 const JobsContainer = () => {
   const {
@@ -15,6 +16,7 @@ const JobsContainer = () => {
     searchStatus,
     searchType,
     sort,
+    numOfPages,
   } = useAppContext();
   useEffect(() => {
     // make request to get the jobs each time one of the search-fields changes
@@ -44,6 +46,8 @@ const JobsContainer = () => {
           return <Job key={job._id} {...job} />;
         })}
       </div>
+
+      {numOfPages > 1 && <PageBtnContainer />}
     </Wrapper>
   );
 };
