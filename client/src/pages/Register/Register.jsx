@@ -1,9 +1,7 @@
-import { useReducer, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo, FormRow, Alert } from "../../components";
-import { DISPLAY_ALERT } from "../../context/actions";
 import { useAppContext } from "../../context/appContext";
-import reducer from "../../context/reducer";
 import Wrapper from "./Register.styles";
 
 const initialState = {

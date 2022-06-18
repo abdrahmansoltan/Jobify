@@ -1,7 +1,5 @@
 # Jobify
 
-<img src="https://progress-bar.dev/40/?title=Done" alt="Logo"  height='30' >
-
 <div id="top"></div>
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -14,14 +12,14 @@
 <!-- PROJECT LOGO -->
 <div align="center">
 <br>
-<a href="#">
+<a href="https://jobify-abdelrahmansoltan.herokuapp.com/">
     <img src="./client/src/assets/images/logo.svg" alt="Logo" height="50" >
   </a>
 <br>
 <br>
 
   <p align="center">
-  <a href="#">View Demo</a>
+  <a href="https://jobify-abdelrahmansoltan.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/abdrahmansoltan/jobify/issues">Report Bug</a>
   </p>
@@ -34,14 +32,16 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
+        <li><a href="#features">Features</a></li>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#users">Users</a></li>
       </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#installation">Installation</a></li>
-        <li><a href="#ports">Ports</a></li>
+        <li><a href="#ports-and-endpoints">Ports and EndPoints</a></li>
       </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
@@ -55,6 +55,16 @@
 MERN Stack Application for tracking Job Search Process
 
 ![Preview](./client/src/assets/images/preview.PNG)
+![Preview](./client/src/assets/images/preview2.PNG)
+![Preview](./client/src/assets/images/preview3.PNG)
+
+### Features
+
+- Login / Sign-up
+- Edit user-data
+- Add jobs
+- Browse user's jobs with (search + filter) feature
+- Display jobs-status + monthly-applications in graphs
 
 ### Built With
 
@@ -65,6 +75,18 @@ MERN Stack Application for tracking Job Search Process
 - Express
 - MongoDB
 
+### users
+
+| Email                 | Password |
+| --------------------- | -------- |
+| abdelrahman@gmail.com | 123123   |
+
+#### Validation
+
+- **Email validation**: as per **RFC2822** standards.
+- **Password validation**:
+  - The password must be more than **6** characters.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ---
@@ -73,9 +95,9 @@ MERN Stack Application for tracking Job Search Process
 
 ## Getting Started
 
-This project require some prequesites and dependenscies to be installed, you can find the instructions below
+This project require some perquisites and dependencies to be installed, you can find the instructions below
 
-This project require some prequesites and dependenscies to be installed, you can view it online using this [demo](#). or you can find the instructions below:
+This project require some perquisites and dependencies to be installed, you can view it online using this [demo](https://jobify-abdelrahmansoltan.herokuapp.com/). or you can find the instructions below:
 
 > To get a local copy, follow these simple steps :
 
@@ -117,10 +139,34 @@ This project require some prequesites and dependenscies to be installed, you can
    npm start
    ```
 
-### Ports
+---
+
+### Ports and EndPoints
+
+#### Ports
 
 - FrontEnd Development Server runs on port `3000`
 - BackEnd Development Server runs on port `5000`
+
+#### API endpoints
+
+**Main URL**: [http://localhost:5000/api/v1](http://localhost:5000/api/v1)
+
+- **Auth**
+
+  - Register User: [http://localhost:5000/api/v1/auth/register](http://localhost:5000/api/v1/auth/register) [POST]
+  - Register User: [http://localhost:5000/api/v1/auth/login](http://localhost:5000/api/v1/auth/login) [POST]
+  - Update User: [http://localhost:5000/api/v1/auth/updateUser](http://localhost:5000/api/v1/auth/updateUser) [PATCH]
+
+- **Jobs**
+
+  - Get all jobs: [http://localhost:5000/api/v1/jobs?status=all&jobType=all&page=1](http://localhost:5000/api/v1/jobs?status=all&jobType=all&page=1) [GET]
+  - Create job: [http://localhost:5000/api/v1/jobs](http://localhost:5000/api/v1/jobs) [POST]
+  - Update job: [http://localhost:5000/api/v1/jobs/:id](http://localhost:5000/api/v1/jobs/:id) [PATCH]
+  - Delete job: [http://localhost:5000/api/v1/jobs/:id](http://localhost:5000/api/v1/jobs/:id) [DELETE]
+  - Get stats: [http://localhost:5000/api/v1/jobs/stats](http://localhost:5000/api/v1/jobs/stats) [Get]
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/f6f7d32b31857f0d5bc9?action=collection%2Fimport)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
