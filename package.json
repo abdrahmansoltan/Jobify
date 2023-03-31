@@ -8,13 +8,12 @@
   },
   "scripts": {
     "install-server": "npm install --prefix server",
-    "install-client": "npm install --prefix client",
+    "install-client": "npm install --force --prefix client",
     "install": "npm run install-server && npm run install-client",
     "server": "npm start --prefix server",
     "client": "npm start --prefix client",
     "start": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\"",
-    "build-client": "npm run build --prefix client",
-    "heroku-postbuild": "npm run install && npm run build-client"
+    "build-client": "npm run build --prefix client"
   },
   "repository": {
     "type": "git",
