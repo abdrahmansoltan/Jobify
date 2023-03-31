@@ -12,14 +12,14 @@
 <!-- PROJECT LOGO -->
 <div align="center">
 <br>
-<a href="https://jobify-abdelrahmansoltan.herokuapp.com/">
+<a href="https://jobify-abdelrahman-soltan.up.railway.app/">
     <img src="./client/src/assets/images/logo.svg" alt="Logo" height="50" >
   </a>
 <br>
 <br>
 
   <p align="center">
-  <a href="https://jobify-abdelrahmansoltan.herokuapp.com/">View Demo</a>
+  <a href="https://jobify-abdelrahman-soltan.up.railway.app/">View Demo</a>
     ·
     <a href="https://github.com/abdrahmansoltan/jobify/issues">Report Bug</a>
   </p>
@@ -97,7 +97,7 @@ MERN Stack Application for tracking Job Search Process
 
 This project require some perquisites and dependencies to be installed, you can find the instructions below
 
-This project require some perquisites and dependencies to be installed, you can view it online using this [demo](https://jobify-abdelrahmansoltan.herokuapp.com/). or you can find the instructions below:
+This project require some perquisites and dependencies to be installed, you can view it online using this [demo](https://jobify-abdelrahman-soltan.up.railway.app/). or you can find the instructions below:
 
 > To get a local copy, follow these simple steps :
 
@@ -106,9 +106,11 @@ This project require some perquisites and dependencies to be installed, you can 
 #### installing Locally
 
 1. Clone the repo
+
    ```sh
    git clone https://github.com/abdrahmansoltan/jobify.git
    ```
+
 2. go to project folder
 
    ```sh
